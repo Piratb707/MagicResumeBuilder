@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Builder</title>
+</head>
+<body>
+    <form method="POST" action="/preview">  <!-- Добавляем action="/preview" -->
+        <h2>Fill in Your Resume Details</h2>
+
+        <label>Name: <input type="text" name="name" required></label><br><br>
+        <label>Email: <input type="email" name="email" required></label><br><br>
+        <label>Telegram: <input type="text" name="telegram"></label><br><br>
+        <label>LinkedIn: <input type="text" name="linkedin"></label><br><br>
+
+        <label>Summary:</label><br>
+        <textarea name="summary"></textarea><br>
+
+        <label>Education:</label><br>
+        <textarea name="education"></textarea><br>
+
+        <label>Technical Stack:</label><br>
+        <input type="text" name="technical_stack"><br>
+        <input type="text" name="technical_stack"><br>
+        <input type="text" name="technical_stack"><br>
+
+        <label>Work Experience:</label><br>
+        <textarea name="work_experience"></textarea><br>
+
+        <label>Languages:</label><br>
+        <input type="text" name="languages"><br>
+        <input type="text" name="languages"><br>
+        <input type="text" name="languages"><br>
+
+        <button type="submit">Create Resume</button>
+    </form>
+</body>
+</html>

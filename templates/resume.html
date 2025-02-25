@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ name }}'s Resume{% endblock %}
+
+{% block content %}
+<h3>{{ name }}</h3>
+<p>Email: <a href="mailto:{{ email }}">{{ email }}</a> | Telegram: {{ telegram }} | LinkedIn: <a href="{{ linkedin }}">{{ name }}</a></p>
+<hr>
+<h4>SUMMARY</h4>
+<p>{{ summary }}</p>
+<hr>
+<h4>EDUCATION</h4>
+<p>{{ education }}</p>
+<hr>
+<h4>TECHNICAL STACK</h4>
+<ul>
+    {% for tech in technical_stack %}
+    <li>{{ tech }}</li>
+    {% endfor %}
+</ul>
+<hr>
+<h4>WORK EXPERIENCE</h4>
+<p>{{ work_experience }}</p>
+<hr>
+<h4>LANGUAGES</h4>
+<ul>
+    {% for lang in languages %}
+    <li>{{ lang }}</li>
+    {% endfor %}
+</ul>
+<hr>
+<button onclick="window.history.back()">Edit</button>
+{% endblock %}
