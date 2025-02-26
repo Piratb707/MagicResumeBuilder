@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+
+    <!-- Подключаем файл стилей style.css, который находится в папке static -->
     <link rel="stylesheet" href="/static/style.css">
+
+    <!-- Блок title позволяет менять заголовок страницы в разных шаблонах -->
     <title>{% block title %}Resume Builder{% endblock %}</title>
 </head>
+
 <body>
+    <!-- Блок content заполняется содержимым дочерних шаблонов -->
     {% block content %}{% endblock %}
 </body>
+
 </html>

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Final Resume{% endblock %}
+
+{% block head %}
+<style>
+    .resume-container {
+        max-width: 950px;
+        margin: auto;
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+    }
+
+    .contact-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .contact-info span {
+        white-space: nowrap;
+    }
+
+    h3, h4 {
+        color: {{ resume_color }};
+    }
+
+    hr {
+        border: 2px solid {{ resume_color }};
+        width: fit-content;
+    }
+
+    /* Прячем все ненужные элементы при печати */
+    @media print {
+        .no-print {
+            display: none !important;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="resume-container">
+    <h3>{{ name }}</h3>
+
+    <div class="contact-info">
+        {% if phone %}<span>Phone: {{ phone }}</span>{% endif %}
+        {% if email %}<span>Email: <a href="mailto:{{ email }}">{{ email }}</a></span>{% endif %}
+        {% if telegram %}<span>Telegram: {{ telegram }}</span>{% endif %}
+        {% if linkedin %}<span>LinkedIn: <a href="{{ linkedin }}">{{ name }}</a></span>{% endif %}
+    </div>
+
+    <hr>
+
+    {% for category, items in session['resume_data'].items() %}
+        {% if category not in ['name', 'email', 'telegram', 'linkedin', 'phone'] %}
+            <h4>{{ category.replace('_', ' ').upper() }}</h4>
+            <hr>
+            {% if items is string %}
+                <p>{{ items }}</p>
+            {% else %}
+                <ul>
+                    {% for item in items %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
