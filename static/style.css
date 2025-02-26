@@ -1,48 +1,94 @@
+/* Контейнер для кнопок */
+.button-container {
+    display: flex; /* Используется flexbox для выравнивания элементов */
+    justify-content: center; /* Центрирует кнопки по горизонтали */
+    position: sticky; /* Элемент остается на экране при прокрутке */
+    bottom: 0; /* Привязывает контейнер к нижней части экрана */
+    background: white; /* Белый фон */
+    padding: 15px; /* Отступы вокруг содержимого */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Тень сверху, придающая глубину */
+}
+
+/* Стиль кнопки отправки */
+button.submit-button {
+    background: var(--button-color, #0056b3); /* Цвет фона с возможностью переопределения через переменную */
+    color: white; /* Белый цвет текста */
+    border: none; /* Без рамки */
+    padding: 15px 30px; /* Отступы внутри кнопки */
+    font-size: 18px; /* Размер шрифта */
+    font-weight: bold; /* Жирный шрифт */
+    cursor: pointer; /* Курсор в виде руки при наведении */
+    border-radius: 6px; /* Сглаженные углы */
+    width: 100%; /* Кнопка занимает всю доступную ширину */
+    max-width: 500px; /* Максимальная ширина кнопки */
+    transition: background 0.3s; /* Плавный переход фона при изменении */
+}
+
+/* Эффект при наведении на кнопку */
+button.submit-button:hover {
+    background: var(--button-hover-color, #003d82); /* Цвет фона кнопки при наведении */
+}
+
+/* Стиль заголовка h4 */
+h4 {
+    display: inline-block; /* Заголовок располагается в строке */
+    border-bottom: 2px solid #0056b3; /* Нижняя линия под заголовком */
+    padding-bottom: 5px; /* Отступ снизу для текста */
+    margin-bottom: 10px; /* Отступ снизу от заголовка */
+}
+
+/* Общие стили для body */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    margin: 0;
-    padding: 20px;
+    font-family: Arial, sans-serif; /* Шрифт для текста */
+    background-color: #f4f4f9; /* Цвет фона страницы */
+    color: #333; /* Цвет текста */
+    margin: 0; /* Убираем стандартные отступы */
+    padding: 20px; /* Отступы внутри body */
 }
 
+/* Стиль для заголовков h2, h3, h4 */
 h2, h3, h4 {
-    color: #0056b3;
+    color: #0056b3; /* Синий цвет заголовков */
 }
 
+/* Стили для формы */
 form {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: auto;
+    background: white; /* Белый фон формы */
+    padding: 20px; /* Отступы внутри формы */
+    border-radius: 8px; /* Скругленные углы формы */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Легкая тень вокруг формы */
+    max-width: 600px; /* Максимальная ширина формы */
+    margin: auto; /* Центрирует форму на странице */
 }
 
+/* Стиль для меток (label) */
 label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
+    display: block; /* Каждая метка на новой строке */
+    margin-top: 10px; /* Отступ сверху */
+    font-weight: bold; /* Жирный шрифт для меток */
 }
 
+/* Стили для полей ввода и текстовых областей */
 input, textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    width: 100%; /* Поля занимают всю доступную ширину */
+    padding: 8px; /* Отступы внутри полей */
+    margin-top: 5px; /* Отступ сверху */
+    border: 1px solid #ccc; /* Светлая рамка */
+    border-radius: 4px; /* Сглаженные углы */
 }
 
+/* Общие стили для кнопок */
 button {
-    background: #0056b3;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    margin-top: 15px;
-    cursor: pointer;
-    border-radius: 4px;
+    background: #0056b3; /* Цвет фона кнопки */
+    color: white; /* Белый текст */
+    border: none; /* Без рамки */
+    padding: 10px 15px; /* Отступы внутри кнопки */
+    margin-top: 15px; /* Отступ сверху */
+    cursor: pointer; /* Курсор в виде руки при наведении */
+    border-radius: 4px; /* Сглаженные углы */
 }
 
+/* Эффект при наведении на кнопки */
 button:hover {
-    background: #003d82;
+    background: #003d82; /* Цвет фона кнопки при наведении */
 }

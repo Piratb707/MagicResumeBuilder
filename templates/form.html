@@ -2,36 +2,123 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <!-- Заголовок страницы -->
     <title>Resume Builder</title>
+
+    <script>
+        /**
+         * Функция включает или выключает поле ввода в зависимости от состояния чекбокса.
+         * @param {HTMLInputElement} checkbox - Чекбокс, который управляет полем.
+         * @param {string} fieldId - ID поля ввода, которое нужно включить или выключить.
+         */
+        function toggleField(checkbox, fieldId) {
+            document.getElementById(fieldId).disabled = !checkbox.checked;
+        }
+
+        /**
+         * Функция добавляет новое текстовое поле в указанную категорию (например, Technical Stack).
+         * @param {string} containerId - ID контейнера, куда добавляется поле.
+         * @param {string} name - Имя (name) нового поля.
+         */
+        function addField(containerId, name) {
+            let container = document.getElementById(containerId);
+            let inputs = container.getElementsByTagName("input");
+
+            // Ограничиваем количество добавляемых полей (до 5)
+            if (inputs.length < 5) {
+                let div = document.createElement("div");  // Создаем контейнер для нового поля
+                let input = document.createElement("input");  // Создаем поле ввода
+                input.type = "text";
+                input.name = name;
+
+                // Создаем кнопку удаления
+                let removeButton = document.createElement("button");
+                removeButton.type = "button";
+                removeButton.textContent = "❌";
+                removeButton.onclick = function() {
+                    container.removeChild(div);
+                };
+
+                // Добавляем поле и кнопку удаления в контейнер
+                div.appendChild(input);
+                div.appendChild(removeButton);
+
+                // Добавляем контейнер в указанную категорию
+                container.appendChild(div);
+            }
+        }
+    </script>
 </head>
+
 <body>
-    <form method="POST" action="/preview">  <!-- Добавляем action="/preview" -->
+    <!-- Форма для ввода данных резюме -->
+    <form method="POST" action="/preview" id="resume-form">
         <h2>Fill in Your Resume Details</h2>
 
-        <label>Name: <input type="text" name="name" required></label><br><br>
-        <label>Email: <input type="email" name="email" required></label><br><br>
-        <label>Telegram: <input type="text" name="telegram"></label><br><br>
-        <label>LinkedIn: <input type="text" name="linkedin"></label><br><br>
+        <!-- Поля с возможностью включения/исключения (чекбоксы) -->
+        <label>
+            <input type="checkbox" name="include_name" checked onchange="toggleField(this, 'name')">
+            Name
+        </label>
+        <input type="text" id="name" name="name" required><br><br>
 
-        <label>Summary:</label><br>
-        <textarea name="summary"></textarea><br>
+        <label>
+            <input type="checkbox" name="include_email" checked onchange="toggleField(this, 'email')">
+            Email
+        </label>
+        <input type="email" id="email" name="email" required><br><br>
 
-        <label>Education:</label><br>
-        <textarea name="education"></textarea><br>
+        <label>
+            <input type="checkbox" name="include_telegram" checked onchange="toggleField(this, 'telegram')">
+            Telegram
+        </label>
+        <input type="text" id="telegram" name="telegram"><br><br>
 
-        <label>Technical Stack:</label><br>
-        <input type="text" name="technical_stack"><br>
-        <input type="text" name="technical_stack"><br>
-        <input type="text" name="technical_stack"><br>
+        <label>
+            <input type="checkbox" name="include_linkedin" checked onchange="toggleField(this, 'linkedin')">
+            LinkedIn
+        </label>
+        <input type="text" id="linkedin" name="linkedin"><br><br>
 
-        <label>Work Experience:</label><br>
-        <textarea name="work_experience"></textarea><br>
+        <label>
+            <input type="checkbox" name="include_phone" checked onchange="toggleField(this, 'phone')">
+            Phone
+        </label>
+        <input type="text" id="phone" name="phone"><br><br>
 
-        <label>Languages:</label><br>
-        <input type="text" name="languages"><br>
-        <input type="text" name="languages"><br>
-        <input type="text" name="languages"><br>
+        <!-- Технические навыки (можно добавить до 5 полей) -->
+        <h4>TECHNICAL STACK</h4>
+        <div id="technical-stack">
+            <input type="text" name="technical_stack">
+            <button type="button" onclick="addField('technical-stack', 'technical_stack')">+</button>
+        </div><br>
 
+        <!-- Опыт работы (можно добавить до 5 полей) -->
+        <h4>WORK EXPERIENCE</h4>
+        <div id="work-experience">
+            <input type="text" name="work_experience">
+            <button type="button" onclick="addField('work-experience', 'work_experience')">+</button>
+        </div><br>
+
+        <!-- Языки (можно добавить до 5 полей) -->
+        <h4>LANGUAGES</h4>
+        <div id="languages">
+            <input type="text" name="languages">
+            <button type="button" onclick="addField('languages', 'languages')">+</button>
+        </div><br>
+
+        <!-- Выбор цвета резюме -->
+        <h4>Choose Resume Color</h4>
+        <select name="resume_color">
+            <option value="blue">Blue</option>
+            <option value="black">Black</option>
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="purple">Purple</option>
+        </select><br><br>
+
+        <!-- Кнопка отправки формы -->
         <button type="submit">Create Resume</button>
     </form>
 </body>

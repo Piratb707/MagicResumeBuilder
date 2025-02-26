@@ -2,32 +2,115 @@
 
 {% block title %}{{ name }}'s Resume{% endblock %}
 
+{% block head %}
+<style>
+    /* Основной контейнер резюме */
+    .resume-container {
+        max-width: 950px; /* Фиксированная ширина */
+        margin: auto; /* Центрирование по горизонтали */
+        padding: 20px; /* Внутренние отступы */
+        background: white; /* Фон */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень */
+        border-radius: 8px; /* Скругленные углы */
+        position: relative; /* Для позиционирования кнопок */
+    }
+
+    /* Контейнер для контактной информации */
+    .contact-info {
+        display: flex; /* Выстраивание элементов в строку */
+        flex-wrap: wrap; /* Позволяет переносить элементы */
+        gap: 10px; /* Отступы между элементами */
+        justify-content: center; /* Выравнивание по центру */
+    }
+
+    /* Запрещаем разрыв слов в контактной информации */
+    .contact-info span {
+        white-space: nowrap;
+    }
+
+    /* Цвет заголовков соответствует выбранному цвету резюме */
+    h3, h4 {
+        color: {{ resume_color }};
+    }
+
+    /* Стили для разделительных линий */
+    hr {
+        border: 2px solid {{ resume_color }}; /* Цвет линии соответствует резюме */
+        width: fit-content; /* Ширина по содержимому */
+    }
+
+    /* Контейнер для кнопок (Edit и Finalize) */
+    .button-container {
+        display: flex; /* Выравнивание кнопок в строку */
+        justify-content: space-between; /* Равномерное распределение */
+        padding: 20px; /* Отступы сверху */
+    }
+
+    /* Общие стили для кнопок */
+    .button {
+        background: {{ resume_color }}; /* Цвет соответствует резюме */
+        color: white; /* Белый текст */
+        border: none; /* Без границ */
+        padding: 12px 20px; /* Отступы внутри */
+        font-size: 16px; /* Размер шрифта */
+        font-weight: bold; /* Жирный текст */
+        cursor: pointer; /* Указатель при наведении */
+        border-radius: 8px; /* Скругленные углы */
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); /* Легкая тень */
+        transition: all 0.3s ease; /* Плавное изменение */
+    }
+
+    /* Эффект при наведении на кнопку */
+    .button:hover {
+        transform: scale(1.05); /* Увеличение кнопки */
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<h3>{{ name }}</h3>
-<p>Email: <a href="mailto:{{ email }}">{{ email }}</a> | Telegram: {{ telegram }} | LinkedIn: <a href="{{ linkedin }}">{{ name }}</a></p>
-<hr>
-<h4>SUMMARY</h4>
-<p>{{ summary }}</p>
-<hr>
-<h4>EDUCATION</h4>
-<p>{{ education }}</p>
-<hr>
-<h4>TECHNICAL STACK</h4>
-<ul>
-    {% for tech in technical_stack %}
-    <li>{{ tech }}</li>
+<div class="resume-container">
+    <!-- Заголовок с именем -->
+    <h3>{{ name }}</h3>
+
+    <!-- Контакты в одной строке (только если поле заполнено) -->
+    <div class="contact-info">
+        {% if phone %}<span>Phone: {{ phone }}</span>{% endif %}
+        {% if email %}<span>Email: <a href="mailto:{{ email }}">{{ email }}</a></span>{% endif %}
+        {% if telegram %}<span>Telegram: {{ telegram }}</span>{% endif %}
+        {% if linkedin %}<span>LinkedIn: <a href="{{ linkedin }}">{{ name }}</a></span>{% endif %}
+    </div>
+
+    <hr> <!-- Разделительная линия -->
+
+    <!-- Цикл по всем категориям резюме -->
+    {% for category, items in session['resume_data'].items() %}
+        {% if category not in ['name', 'email', 'telegram', 'linkedin', 'phone'] %}
+            <h4>{{ category.replace('_', ' ').upper() }}</h4> <!-- Заголовок категории -->
+            <hr> <!-- Разделительная линия -->
+
+            {% if items is string %}
+                <p>{{ items }}</p> <!-- Если категория содержит строку, просто выводим текст -->
+            {% else %}
+                <ul>
+                    {% for item in items %}
+                    <li>{{ item }}</li> <!-- Выводим список элементов категории -->
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endif %}
     {% endfor %}
-</ul>
-<hr>
-<h4>WORK EXPERIENCE</h4>
-<p>{{ work_experience }}</p>
-<hr>
-<h4>LANGUAGES</h4>
-<ul>
-    {% for lang in languages %}
-    <li>{{ lang }}</li>
-    {% endfor %}
-</ul>
-<hr>
-<button onclick="window.history.back()">Edit</button>
+
+    <!-- Контейнер с кнопками -->
+    <div class="button-container">
+        <!-- Кнопка "Edit" (возвращает пользователя к форме) -->
+        <form action="/" method="GET">
+            <button type="submit" class="button">Edit</button>
+        </form>
+
+        <!-- Кнопка "Finalize" (переход к финальной версии резюме) -->
+        <form action="/finalize" method="GET">
+            <button type="submit" class="button">Finalize</button>
+        </form>
+    </div>
+</div>
 {% endblock %}
