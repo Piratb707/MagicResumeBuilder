@@ -1,0 +1,30 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+
+# Virtual environment
+venv/
+env/
+*.venv
+*.env
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs and database
+*.log
+*.sqlite3
+instance/
+
+# Python dependencies
+*.egg-info/
+pip-log.txt
+
+# OS-specific files
+.DS_Store
+Thumbs.db
